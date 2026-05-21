@@ -1,0 +1,7 @@
+# Optional heavyweight pipeline dependencies for production ingestion workers.
+-r requirements.txt
+yt-dlp==2024.12.23
+openai-whisper==20240930
+torch==2.5.1
+transformers==4.47.1
+pillow==11.0.0
