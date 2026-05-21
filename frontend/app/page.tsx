@@ -50,7 +50,7 @@ export default function Home() {
       const results = await searchClips(query);
       setSearchClipsList(results);
     } catch {
-      setError("Search is waiting on the backend service at localhost:8010.");
+      setError("Backend service is unavailable.");
     } finally {
       setLoading(false);
     }

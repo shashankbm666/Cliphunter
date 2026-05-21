@@ -1,6 +1,6 @@
 import type { Clip, IngestResponse } from "./types";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8010";
+const API_BASE = "https://heroic-rebirth-production-b3d6.up.railway.app";
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(`${API_BASE}${path}`, {
