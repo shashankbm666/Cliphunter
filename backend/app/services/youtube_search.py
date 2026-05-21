@@ -3,9 +3,9 @@ from __future__ import annotations
 import asyncio
 import re
 
-from backend.app.models import Clip
-from backend.app.services.ai_pipeline import format_timestamp
-from backend.app.services.security import (
+from app.models import Clip
+from app.services.ai_pipeline import format_timestamp
+from app.services.security import (
     validate_youtube_video_id,
     youtube_thumbnail_url,
     youtube_watch_url,

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from backend.app.models import Clip, IngestResponse
-from backend.app.services.security import (
+from app.models import Clip, IngestResponse
+from app.services.security import (
     extract_youtube_video_id,
     youtube_thumbnail_url,
     youtube_watch_url,

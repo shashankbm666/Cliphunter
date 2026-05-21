@@ -1,4 +1,4 @@
-from backend.app.models import Clip
+from app.models import Clip
 
 
 def clip(

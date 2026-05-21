@@ -9,9 +9,19 @@ type ResultsGridProps = {
   clips: Clip[];
   savedIds: Set<string>;
   onSave: (clip: Clip) => void;
+  title?: string;
+  eyebrow?: string;
+  emptyText?: string;
 };
 
-export function ResultsGrid({ clips, savedIds, onSave }: ResultsGridProps) {
+export function ResultsGrid({
+  clips,
+  savedIds,
+  onSave,
+  title = "YouTube results",
+  eyebrow = "Results",
+  emptyText = "No matching clips yet."
+}: ResultsGridProps) {
   const [previewId, setPreviewId] = useState<string | null>(null);
 
   return (
@@ -19,10 +29,10 @@ export function ResultsGrid({ clips, savedIds, onSave }: ResultsGridProps) {
       <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ember">
-            Results
+            {eyebrow}
           </p>
           <h2 className="mt-1 text-2xl font-semibold text-white">
-            YouTube results
+            {title}
           </h2>
         </div>
         <p className="text-sm text-steel">{clips.length} matches</p>
@@ -30,7 +40,7 @@ export function ResultsGrid({ clips, savedIds, onSave }: ResultsGridProps) {
 
       {clips.length === 0 ? (
         <div className="rounded border border-white/10 bg-white/[0.04] p-8 text-center text-steel">
-          No matching clips in the current index.
+          {emptyText}
         </div>
       ) : null}
 

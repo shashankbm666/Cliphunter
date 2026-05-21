@@ -1,11 +1,11 @@
 from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
 
-from backend.app.models import Clip, IngestResponse, SaveClipRequest, VideoIngestRequest
-from backend.app.services.ai_pipeline import analyze_youtube_video
-from backend.app.services.security import client_key, rate_limiter
-from backend.app.services.vector_store import vector_store
-from backend.app.services.youtube_search import search_youtube
+from app.models import Clip, IngestResponse, SaveClipRequest, VideoIngestRequest
+from app.services.ai_pipeline import analyze_youtube_video
+from app.services.security import client_key, rate_limiter
+from app.services.vector_store import vector_store
+from app.services.youtube_search import search_youtube
 
 app = FastAPI(title="ClipHunt API", version="0.1.0")
 

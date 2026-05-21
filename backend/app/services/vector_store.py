@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from backend.app.models import Clip
-from backend.app.services.demo_catalog import DEMO_CLIPS
+from app.models import Clip
+from app.services.demo_catalog import DEMO_CLIPS
 
 
 ALIASES = {
@@ -74,7 +74,7 @@ class InMemoryVectorStore:
         return [clip for clip, _ in sorted(selected, key=lambda item: item[1], reverse=True)[:18]]
 
     def suggestions(self, query: str) -> list[str]:
-        from backend.app.services.demo_catalog import SUGGESTIONS
+        from app.services.demo_catalog import SUGGESTIONS
 
         normalized = query.lower().strip()
         if not normalized:

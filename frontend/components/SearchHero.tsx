@@ -2,21 +2,18 @@
 
 import { FormEvent, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Link2, Loader2, Plus, Search } from "lucide-react";
+import { Loader2, Search } from "lucide-react";
 import { defaultSuggestions } from "@/lib/demoClips";
 
 type SearchHeroProps = {
-  onIngest: (url: string) => Promise<void>;
   onSearch: (query: string) => Promise<void>;
   onSuggest: (query: string) => Promise<string[]>;
   loading: boolean;
 };
 
-export function SearchHero({ onIngest, onSearch, onSuggest, loading }: SearchHeroProps) {
-  const [youtubeUrl, setYoutubeUrl] = useState("");
+export function SearchHero({ onSearch, onSuggest, loading }: SearchHeroProps) {
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState(defaultSuggestions);
-  const [showIngest, setShowIngest] = useState(false);
 
   useEffect(() => {
     const timer = window.setTimeout(async () => {
@@ -32,12 +29,6 @@ export function SearchHero({ onIngest, onSearch, onSuggest, loading }: SearchHer
     return () => window.clearTimeout(timer);
   }, [query, onSuggest]);
 
-  async function submitVideo(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (!youtubeUrl.trim()) return;
-    await onIngest(youtubeUrl.trim());
-  }
-
   async function submitSearch(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!query.trim()) return;
@@ -52,7 +43,7 @@ export function SearchHero({ onIngest, onSearch, onSuggest, loading }: SearchHer
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          AI semantic clip finder
+          ClipHunt Search
         </motion.p>
         <motion.h1
           className="max-w-4xl text-4xl font-semibold leading-[1.05] text-white sm:text-6xl"
@@ -60,7 +51,7 @@ export function SearchHero({ onIngest, onSearch, onSuggest, loading }: SearchHer
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.08 }}
         >
-          Search moments, not videos.
+          Find footage moments.
         </motion.h1>
         <motion.p
           className="mt-4 max-w-2xl text-base leading-7 text-steel"
@@ -68,7 +59,7 @@ export function SearchHero({ onIngest, onSearch, onSuggest, loading }: SearchHer
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.16 }}
         >
-          Search YouTube first, then index a video for timestamp-level scene analysis.
+          Search real YouTube footage. Use Analyzer when you want to process one specific video.
         </motion.p>
 
         <motion.div
@@ -118,37 +109,6 @@ export function SearchHero({ onIngest, onSearch, onSuggest, loading }: SearchHer
             Results prioritize real footage and downrank slideshow, explainer, simulation, and photo-only videos.
           </p>
 
-          <button
-            className="inline-flex w-fit items-center gap-2 px-1 py-1 text-xs font-medium text-steel transition hover:text-white"
-            onClick={() => setShowIngest((value) => !value)}
-            type="button"
-          >
-            <Plus className="h-3.5 w-3.5" />
-            Index a specific YouTube video
-          </button>
-
-          {showIngest ? (
-            <form className="flex flex-col gap-3 sm:flex-row" onSubmit={submitVideo}>
-              <label className="relative flex-1">
-                <Link2 className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-steel" />
-                <input
-                  aria-label="YouTube video URL"
-                  className="h-12 w-full rounded border border-white/10 bg-white/[0.06] pl-12 pr-4 text-sm text-white outline-none transition focus:border-ember"
-                  placeholder="Paste YouTube URL to add it to this search index"
-                  value={youtubeUrl}
-                  onChange={(event) => setYoutubeUrl(event.target.value)}
-                />
-              </label>
-              <button
-                className="inline-flex h-12 items-center justify-center gap-2 rounded bg-white px-5 text-sm font-semibold text-ink transition hover:bg-gold disabled:cursor-not-allowed disabled:opacity-60"
-                disabled={loading}
-                type="submit"
-              >
-                {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Link2 className="h-4 w-4" />}
-                Index
-              </button>
-            </form>
-          ) : null}
         </motion.div>
       </div>
     </section>
